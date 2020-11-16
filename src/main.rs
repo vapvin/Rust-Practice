@@ -16,8 +16,10 @@ fn main() {
  
     io::stdin().read_line(&mut guess)
         .expect("값을 읽어오지 못 했습니다.");
-    let guess: u32 = guess.trim().parse()
-        .expect("입력한 값이 숫자가 아닙니다.");
+    let guess: u32 = match guess.trim().parse() {
+        Ok(num) => num,
+        Err(_) => continue,
+    };
     println!("입력한 값: {}", guess);
     match guess.cmp(&secret_number){
         Ordering::Less => println!("입력한 숫자가 정답보다 작습니다."),
